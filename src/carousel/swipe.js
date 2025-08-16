@@ -3,7 +3,7 @@ import { DEFAULT_SETTINGS } from './helpers/config.js';
 
 class SwipeCarousel extends Carousel {
   #swipeThreshold;
-  #swipeStartX
+  #swipeStartX;
   #swipeEndX;
   #slidesContainer;
 
@@ -39,12 +39,12 @@ class SwipeCarousel extends Carousel {
   
   #swipeEndHandler(e) {
     const t = e.changedTouches && e.changedTouches[0];
-    const endX =
+    this.#swipeEndX =
       (t && (t.pageX ?? t.clientX)) ??
       (e.pageX ?? e.clientX) ??
       0;
 
-    const diffX = endX - this.#swipeStartX;
+    const diffX = this.#swipeEndX - this.#swipeStartX;
 
     if (diffX <= -this.#swipeThreshold) this.next();
     else if (diffX >= this.#swipeThreshold) this.prev();
